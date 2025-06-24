@@ -3,74 +3,260 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>🎮 Next Weeks Game!</title>
+  <title>Next Weeks Game!</title>
   <style>
-    html,body{margin:0;padding:0;height:100%;overflow:hidden;
-      font-family:'Segoe UI',sans-serif;
-      background:url("images/background.jpg") center/cover no-repeat;
-      color:#fff}
-    .overlay{position:absolute;inset:0;
-      background:rgba(0,0,0,.75);
-      display:flex;flex-direction:column;align-items:center}
-    .logo{max-height:120px;margin:16px 0}
-    h1{margin:0 0 16px;font-size:1.75rem;text-align:center}
-    .controls{margin-bottom:12px}
-    .controls button{margin:0 6px;padding:8px 14px;
-      font-size:14px;border:none;border-radius:4px;
-      background:#4CAF50;color:#fff;cursor:pointer;
-      transition:background .2s}
-    .controls button:hover{background:#45a049}
-    .scroll-container{width:90%;max-width:600px;height:100px;
-      margin-bottom:12px;overflow:hidden;
-      border:2px dashed #ccc;background:#333}
-    #scrollList{position:relative;top:0}
-    .lists-area{flex:1 1 auto;display:flex;justify-content:space-around;
-      width:100%;padding:0 60px 100px;box-sizing:border-box;
-      overflow-y:auto}
-    .list-section{width:45%}
-    .list-section h3{margin-top:0;text-align:center;font-size:1.25em}
-    ul{display:grid;grid-template-columns:repeat(3,max-content);
-      justify-content:center;gap:8px;list-style:none;
-      padding:0;margin:10px 0}
-    .list-item{background:#333;padding:6px 10px;border-radius:5px;
-      display:flex;align-items:center;white-space:nowrap;
-      font-size:14px}
-    .list-item button{margin-right:8px;border:none;
-      border-radius:3px;padding:0 6px;font-size:14px;
-      cursor:pointer;color:#fff}
-    .remove-btn{background:#d9534f}
-    .remove-btn:hover{background:#c9302c}
-    .restore-btn{background:#5cb85c}
-    .restore-btn:hover{background:#4cae4c}
-    .add-bar{position:fixed;bottom:16px;left:50%;
-      transform:translateX(-50%);background:rgba(51,51,51,.9);
-      padding:8px 12px;border-radius:6px;display:flex;
-      gap:8px;align-items:center;z-index:1000}
-    .add-bar input{padding:6px;font-size:14px;width:160px;
-      border:none;border-radius:4px}
-    .add-bar button{padding:6px 12px;font-size:14px;
-      border:none;border-radius:4px;background:#4CAF50;
-      color:#fff;cursor:pointer;transition:background .2s}
-    .add-bar button:hover{background:#45a049}
-    .highlight{animation:pulse .6s ease-out forwards}
-    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.1)}
-      100%{transform:scale(1)}}
-    @media(max-width:900px){.lists-area{padding:0 40px 100px}}
-    @media(max-width:600px){
-      h1{font-size:1.5rem}
-      .lists-area{flex-direction:column;padding:0 20px 100px}
-      .list-section{width:100%;margin-bottom:24px}
-      ul{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
-      .add-bar input{width:120px}
+    /* General Page Styles */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background: url("images/background.jpg") center/cover no-repeat;
+      color: #fff;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .logo {
+      max-height: 120px;
+      margin: 16px 0;
+    }
+    h1 {
+      margin: 0 0 16px;
+      font-size: 1.75rem;
+      text-align: center;
+    }
+    .controls {
+      margin-bottom: 12px;
+    }
+    .controls button {
+      margin: 0 6px;
+      padding: 8px 14px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      background: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .controls button:hover {
+      background: #45a049;
+    }
+    .scroll-container {
+      width: 90%;
+      max-width: 600px;
+      height: 100px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      border: 2px dashed #ccc;
+      background: #333;
+    }
+    #scrollList {
+      position: relative;
+      top: 0;
+    }
+    .lists-area {
+      flex: 1 1 auto;
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      padding: 0 60px 100px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    .list-section {
+      width: 45%;
+    }
+    .list-section h3 {
+      margin-top: 0;
+      text-align: center;
+      font-size: 1.25em;
+    }
+    ul {
+      display: grid;
+      grid-template-columns: repeat(3, max-content);
+      justify-content: center;
+      gap: 8px;
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+    .list-item {
+      background: #333;
+      padding: 6px 10px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+    .list-item button {
+      margin-right: 8px;
+      border: none;
+      border-radius: 3px;
+      padding: 0 6px;
+      font-size: 14px;
+      cursor: pointer;
+      color: #fff;
+    }
+    .remove-btn {
+      background: #d9534f;
+    }
+    .remove-btn:hover {
+      background: #c9302c;
+    }
+    .restore-btn {
+      background: #5cb85c;
+    }
+    .restore-btn:hover {
+      background: #4cae4c;
+    }
+    .game-info {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .game-thumb {
+      width: 40px;
+      height: auto;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    .game-desc {
+      font-size: 0.85em;
+      color: #ccc;
+      word-wrap: break-word;
+    }
+    /* Add Game Form */
+    .add-bar {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(51, 51, 51, 0.9);
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      z-index: 1000;
+    }
+    .add-bar input,
+    .add-bar textarea,
+    .add-bar select {
+      padding: 6px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+    }
+    .add-bar input[type="text"] {
+      width: 160px;
+    }
+    .add-bar textarea {
+      width: 200px;
+      height: 40px;
+      resize: vertical;
+    }
+    .add-bar input[type="file"] {
+      width: auto;
+    }
+    .add-bar select {
+      width: 100px;
+    }
+    .add-bar button {
+      padding: 6px 12px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      background: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .add-bar button:hover {
+      background: #45a049;
+    }
+    .highlight {
+      animation: pulse 0.6s ease-out forwards;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    @media (max-width: 900px) {
+      .lists-area { padding: 0 40px 100px; }
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.5rem; }
+      .lists-area {
+        flex-direction: column;
+        padding: 0 20px 100px;
+      }
+      .list-section { width: 100%; margin-bottom: 24px; }
+      ul { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+      .add-bar input[type="text"] { width: 120px; }
+    }
+    /* Overlay Popup for Game Details */
+    .game-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    .popup-content {
+      background: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 350px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      word-wrap: break-word;
+    }
+    .popup-content img {
+      display: block;
+      margin: 0 auto 20px auto;
+      max-width: 100%;
+      height: auto;
+    }
+    .popup-content h2 {
+      margin: 0 0 12px;
+    }
+    .popup-content p {
+      font-size: 1rem;
+      margin: 0 0 12px;
+    }
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      color: #333;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <div class="overlay">
-    <img src="images/image1.jpg" class="logo" alt="Logo">
-    <h1>🎲 Next Weeks Game!</h1>
+    <img src="images/image1.jpg" class="logo" alt="Logo"/>
+    <h1>Next Weeks Game!</h1>
     <div class="controls">
       <button onclick="scrollAndPick()">Spin to Choose</button>
+      <!-- Reset Button removed as requested -->
     </div>
     <div class="scroll-container">
       <div id="scrollList"></div>
@@ -87,174 +273,256 @@
     </div>
   </div>
 
+  <!-- Add Game Form -->
   <div class="add-bar">
-    <input id="gameInput" type="text" placeholder="Add new game">
+    <input id="gameName" type="text" placeholder="Game name"/>
+    <textarea id="gameDescription" placeholder="Game description"></textarea>
+    <input id="gameImage" type="file" accept="image/*"/>
+    <select id="gamePlatform">
+      <option value="PC">PC</option>
+      <option value="Switch">Switch</option>
+      <option value="Other">Other</option>
+    </select>
     <button onclick="addGame()">Add Game</button>
   </div>
 
+  <!-- Overlay Popup for Game Details -->
+  <div id="gamePopup" class="game-popup">
+    <div class="popup-content">
+      <span id="closePopup" class="close-button">&times;</span>
+      <img id="popupImage" src="" alt="Game Image" style="display:none;"/>
+      <h2 id="popupGameName"></h2>
+      <p id="popupPlatform" style="font-weight:bold; margin:0 0 12px;"></p>
+      <p id="popupGameDesc"></p>
+    </div>
+  </div>
+
   <script>
-    // scroll sound only
+    // Scroll sound only
     const scrollSound = new Audio('sounds/scroll.mp3');
 
-    // initial data
-    const originalGames = [
-      "It Takes Two","Deep Rock Galactic","A Way Out",
-      "Keep Talking and Nobody Explodes","Stardew Valley",
-      "Lovers in a Dangerous Spacetime","Phasmaphobia",
-      "Portal 2","Left 4 Dead 2","Castle Crashers","Cuphead",
-      "Borderlands 3","Overcooked 2","Helldivers","Payday 2",
-      "Back 4 Blood","Gang Beasts","Sea of Thieves","Terraria"
-    ];
+    // Start with no preloaded games
+    const originalGames = [];
     let availableGames = JSON.parse(localStorage.getItem("availableGames")) || [...originalGames];
-    let removedGames   = JSON.parse(localStorage.getItem("removedGames"))   || [];
-    let lastGame       = localStorage.getItem("lastGame")                || null;
+    let removedGames   = JSON.parse(localStorage.getItem("removedGames")) || [];
+    let lastGame       = localStorage.getItem("lastGame") || null;
 
-    function saveState(){
+    function saveState() {
       localStorage.setItem("availableGames", JSON.stringify(availableGames));
       localStorage.setItem("removedGames", JSON.stringify(removedGames));
       if (lastGame) localStorage.setItem("lastGame", lastGame);
     }
 
-    function shuffleArray(arr){
+    function shuffleArray(arr) {
       const a = [...arr];
-      for(let i=a.length-1; i>0; i--){
-        const j=Math.floor(Math.random()*(i+1));
-        [a[i],a[j]]=[a[j],a[i]];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
       }
       return a;
     }
 
-    function renderLists(){
-      const avail = document.getElementById("availableList"),
-            rem   = document.getElementById("removedList");
+    function renderLists() {
+      const avail = document.getElementById("availableList");
+      const rem = document.getElementById("removedList");
       avail.innerHTML = "";
-      rem.innerHTML   = "";
+      rem.innerHTML = "";
 
-      // Games to Play
-      availableGames.forEach(g=>{
-        const li=document.createElement("li");
-        li.className="list-item";
-        li.innerHTML=`
-          <button class="restore-btn"
-            onclick='removeGame(${JSON.stringify(g)})'>&rarr;</button>
-          <span>${g}</span>`;
+      availableGames.forEach(game => {
+        const li = document.createElement("li");
+        li.className = "list-item";
+        li.innerHTML = `
+          <button class="restore-btn" onclick="removeGame(${game.id})">&rarr;</button>
+          <div class="game-info">
+            <strong onclick="showPopupById(${game.id})" style="cursor:pointer;">${game.name}</strong>
+          </div>`;
         avail.appendChild(li);
       });
 
-      // Past Picks
-      removedGames.forEach(g=>{
-        const li=document.createElement("li");
-        li.className="list-item";
-        li.innerHTML=`
-          <button class="restore-btn"
-            onclick='reAddGame(${JSON.stringify(g)})'>&larr;</button>
-          <button class="remove-btn"
-            onclick='deleteGame(${JSON.stringify(g)})'>&times;</button>
-          <span>${g}</span>`;
+      removedGames.forEach(game => {
+        const li = document.createElement("li");
+        li.className = "list-item";
+        li.innerHTML = `
+          <button class="restore-btn" onclick="reAddGame(${game.id})">&larr;</button>
+          <button class="remove-btn" onclick="deleteGame(${game.id})">&times;</button>
+          <div class="game-info">
+            <strong onclick="showPopupById(${game.id})" style="cursor:pointer;">${game.name}</strong>
+          </div>`;
         rem.appendChild(li);
       });
     }
 
-    function scrollAndPick(){
-      if(!availableGames.length){
-        return alert("All games picked! Reset or add more.");
+    function scrollAndPick() {
+      if (availableGames.length === 0) {
+        return alert("No games available! Please add a game.");
       }
       const scrollList = document.getElementById("scrollList");
-      scrollList.innerHTML="";
-      scrollList.style.transition="";
-      scrollList.style.top="0px";
+      scrollList.innerHTML = "";
+      scrollList.style.transition = "";
+      scrollList.style.top = "0px";
 
-      scrollSound.currentTime=0;
+      scrollSound.currentTime = 0;
       scrollSound.play();
 
       const shuffled = shuffleArray(availableGames),
             loops = 3,
-            chosenIdx = Math.floor(Math.random()*shuffled.length),
+            chosenIdx = Math.floor(Math.random() * shuffled.length),
             extended = [];
-
-      // build spin sequence
-      for(let r=0; r<loops; r++) shuffled.forEach(g=>extended.push(g));
-      for(let i=0; i<=chosenIdx; i++) extended.push(shuffled[i]);
-
-      extended.forEach(g=>{
-        const d=document.createElement("div");
-        d.style.cssText=
-          "height:100px;line-height:100px;font-size:32px;"+
-          "font-weight:bold;white-space:nowrap;width:100%;"+
-          "text-align:center;overflow:hidden;";
-        d.textContent="🎮 "+g;
+      
+      for (let r = 0; r < loops; r++) {
+        shuffled.forEach(g => extended.push(g));
+      }
+      for (let i = 0; i <= chosenIdx; i++) {
+        extended.push(shuffled[i]);
+      }
+      
+      extended.forEach(game => {
+        const d = document.createElement("div");
+        d.style.cssText =
+          "height:100px; line-height:100px; font-size:32px;" +
+          "font-weight:bold; white-space:nowrap; width:100%;" +
+          "text-align:center; overflow:hidden;";
+        d.textContent = "🎮 " + game.name;
         scrollList.appendChild(d);
       });
-
-      setTimeout(()=>{
-        scrollList.style.transition="top 5s ease-out";
-        scrollList.style.top =
-          -((loops*shuffled.length + chosenIdx)*100) + "px";
-      },20);
-
-      scrollList.addEventListener("transitionend", function handler(){
+      
+      setTimeout(() => {
+        scrollList.style.transition = "top 5s ease-out";
+        scrollList.style.top = -((loops * shuffled.length + chosenIdx) * 100) + "px";
+      }, 20);
+      
+      scrollList.addEventListener("transitionend", function handler() {
         scrollList.removeEventListener("transitionend", handler);
-
-        const idx = loops*shuffled.length + chosenIdx;
+        const idx = loops * shuffled.length + chosenIdx;
         const chosenDiv = scrollList.children[idx];
         chosenDiv.classList.add("highlight");
-        chosenDiv.addEventListener("animationend", ()=>{
+        chosenDiv.addEventListener("animationend", () => {
           chosenDiv.classList.remove("highlight");
         });
-
         const pick = extended[idx],
-              i = availableGames.indexOf(pick);
-        if(i > -1){
-          availableGames.splice(i,1);
+              i = availableGames.findIndex(g => g.id === pick.id);
+        if (i > -1) {
+          availableGames.splice(i, 1);
           removedGames.push(pick);
           lastGame = pick;
           renderLists();
           saveState();
+          // Display popup overlay with game details
+          showPopup(pick);
         }
       });
     }
 
-    function resetGames(){
-      if(!confirm("Are you sure you want to reset all games?")) return;
-      availableGames = [...originalGames];
-      removedGames   = [];
-      lastGame       = null;
-      localStorage.clear();
+    // Helper function to look up a game by id and show popup
+    function showPopupById(gameId) {
+      let game = availableGames.find(g => g.id === gameId);
+      if (!game) {
+        game = removedGames.find(g => g.id === gameId);
+      }
+      if (game) {
+        showPopup(game);
+      }
+    }
+
+    // Overlay Popup Functions
+    function showPopup(game) {
+      const popup = document.getElementById("gamePopup");
+      const popupImage = document.getElementById("popupImage");
+      const popupName = document.getElementById("popupGameName");
+      const popupDesc = document.getElementById("popupGameDesc");
+      const popupPlatform = document.getElementById("popupPlatform");
+      
+      popupName.textContent = game.name;
+      popupDesc.textContent = game.description || "";
+      popupPlatform.textContent = "Platform: " + (game.platform || "N/A");
+      
+      if (game.image) {
+        popupImage.src = game.image;
+        popupImage.style.display = "block";
+      } else {
+        popupImage.style.display = "none";
+      }
+      
+      popup.style.display = "flex";
+    }
+    
+    document.getElementById("closePopup").addEventListener("click", function() {
+      document.getElementById("gamePopup").style.display = "none";
+    });
+
+    // Functions to move games between lists
+    function removeGame(gameId) {
+      const game = availableGames.find(g => g.id === gameId);
+      if (!game) return;
+      availableGames = availableGames.filter(g => g.id !== gameId);
+      removedGames.push(game);
       renderLists();
+      saveState();
     }
-
-    function removeGame(name){
-      availableGames = availableGames.filter(g=>g!==name);
-      removedGames.push(name);
-      if(lastGame === name) lastGame = null;
-      renderLists(); saveState();
+    
+    function deleteGame(gameId) {
+      if (!confirm("Permanently delete this game?")) return;
+      removedGames = removedGames.filter(g => g.id !== gameId);
+      renderLists();
+      saveState();
     }
-
-    function deleteGame(name){
-      if(!confirm(`Permanently delete “${name}”?`)) return;
-      removedGames = removedGames.filter(g=>g!==name);
-      if(lastGame === name) lastGame = null;
-      renderLists(); saveState();
+    
+    function reAddGame(gameId) {
+      const game = removedGames.find(g => g.id === gameId);
+      if (!game) return;
+      removedGames = removedGames.filter(g => g.id !== gameId);
+      availableGames.push(game);
+      renderLists();
+      saveState();
     }
-
-    function reAddGame(name){
-      if(!availableGames.includes(name)){
-        removedGames = removedGames.filter(g=>g!==name);
-        availableGames.push(name);
-        renderLists(); saveState();
+    
+    // Utility to clear the add form
+    function clearAddBar() {
+      document.getElementById("gameName").value = "";
+      document.getElementById("gameDescription").value = "";
+      document.getElementById("gameImage").value = "";
+      document.getElementById("gamePlatform").selectedIndex = 0;
+    }
+    
+    // Add a new game
+    function addGame() {
+      const name = document.getElementById("gameName").value.trim();
+      const description = document.getElementById("gameDescription").value.trim();
+      const platform = document.getElementById("gamePlatform").value;
+      const imageFile = document.getElementById("gameImage").files[0];
+      
+      if (!name) {
+        alert("Please enter a game name.");
+        return;
+      }
+      
+      const newGame = { 
+        id: Date.now(), 
+        name: name, 
+        description: description || "", 
+        platform: platform, 
+        image: ""
+      };
+      
+      if (imageFile) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          newGame.image = e.target.result;
+          availableGames.push(newGame);
+          clearAddBar();
+          renderLists();
+          saveState();
+        };
+        reader.readAsDataURL(imageFile);
+      } else {
+        availableGames.push(newGame);
+        clearAddBar();
+        renderLists();
+        saveState();
       }
     }
-
-    function addGame(){
-      const val=document.getElementById("gameInput").value.trim();
-      if(val && !availableGames.includes(val) && !removedGames.includes(val)){
-        availableGames.push(val);
-        document.getElementById("gameInput").value="";
-        renderLists(); saveState();
-      }
-    }
-
-    // initial render
+    
+    // Initial render
     renderLists();
   </script>
 </body>
