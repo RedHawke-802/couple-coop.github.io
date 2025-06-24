@@ -248,6 +248,33 @@
       color: #333;
       cursor: pointer;
     }
+    /* Backup and Restore Section */
+    .backup-bar {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(51,51,51,0.9);
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      z-index: 1000;
+    }
+    .backup-bar button {
+      padding: 6px 12px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      background: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .backup-bar button:hover {
+      background: #45a049;
+    }
   </style>
 </head>
 <body>
@@ -284,6 +311,13 @@
       <option value="Other">Other</option>
     </select>
     <button onclick="addGame()">Add Game</button>
+  </div>
+
+  <!-- Backup and Restore Section -->
+  <div class="backup-bar">
+    <button onclick="exportData()">Export Data</button>
+    <button onclick="document.getElementById('backupFileInput').click()">Import Data</button>
+    <input type="file" id="backupFileInput" style="display: none;" accept=".json" onchange="handleBackupFile(event)"/>
   </div>
 
   <!-- Overlay Popup for Game Details -->
@@ -520,6 +554,49 @@
         renderLists();
         saveState();
       }
+    }
+    
+    // Backup & Restore Functions
+    function exportData() {
+      const data = {
+        availableGames: availableGames,
+        removedGames: removedGames,
+        lastGame: lastGame
+      };
+      const dataStr = JSON.stringify(data, null, 2);
+      const blob = new Blob([dataStr], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "game_picker_backup.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+    
+    function handleBackupFile(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (data.availableGames && data.removedGames !== undefined) {
+            availableGames = data.availableGames;
+            removedGames = data.removedGames;
+            lastGame = data.lastGame || null;
+            renderLists();
+            saveState();
+            alert("Data imported successfully!");
+          } else {
+            alert("Invalid backup file!");
+          }
+        } catch (err) {
+          alert("Error reading backup file!");
+        }
+      };
+      reader.readAsText(file);
     }
     
     // Initial render
