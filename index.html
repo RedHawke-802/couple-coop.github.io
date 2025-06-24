@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Next Weeks Game!</title>
   <style>
     /* General Page Styles */
@@ -240,7 +240,7 @@
       font-size: 1rem;
       margin: 0 0 12px;
     }
-    /* Redesigned Close Button */
+    /* Redesigned Close Button as a Circular Button */
     .close-button {
       position: absolute;
       top: 5px;
@@ -451,8 +451,10 @@
           lastGame = pick;
           renderLists();
           saveState();
-          // Display popup overlay with game details
-          showPopup(pick);
+          // Delay the game details popup by 1.5 seconds after the spinning stops
+          setTimeout(() => {
+            showPopup(pick);
+          }, 1500);
         }
       });
     }
