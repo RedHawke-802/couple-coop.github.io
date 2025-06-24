@@ -4,7 +4,3 @@ A fun static “Next Weeks Game” picker with spin-sound, landing pop, and pers
 
 ## Usage
 
-1. Clone this repo  
-   ```bash
-   git clone https://github.com/your-username/next-weeks-game.git
-   cd next-weeks-game
