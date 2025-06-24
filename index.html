@@ -2,112 +2,129 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>🎮 Next Weeks Game!</title>
   <style>
     html, body {
-      margin: 0; padding: 0; height: 100%; overflow: hidden;
+      margin:0; padding:0; height:100%; overflow:hidden;
       font-family: 'Segoe UI', sans-serif;
-      background: url("Images/background.jpg") no-repeat center center fixed;
+      background: url("images/background.jpg") no-repeat center center fixed;
       background-size: cover; color: #fff;
     }
     .overlay {
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      position:absolute; inset:0;
       background: rgba(0,0,0,0.75);
-      display: flex; flex-direction: column; align-items: center;
+      display:flex; flex-direction:column; align-items:center;
     }
     .logo {
-      max-height: 140px; margin: 20px 0;
+      max-height:120px; margin:16px 0;
+      width:auto;
     }
     h1 {
-      margin: 0 0 20px; font-size: 2em;
+      margin:0 0 16px; font-size:1.75rem;
+      text-align:center;
     }
     .controls {
-      flex: 0 0 auto; margin-bottom: 10px;
+      margin-bottom:12px;
     }
     .controls button {
-      margin: 0 8px; padding: 8px 16px; font-size: 14px;
-      border: none; border-radius: 4px; background: #4CAF50; color: #fff;
-      cursor: pointer; transition: background .2s;
+      margin:0 6px; padding:8px 14px;
+      font-size:14px; border:none; border-radius:4px;
+      background:#4CAF50; color:#fff; cursor:pointer;
+      transition:background .2s;
     }
-    .controls button:hover { background: #45a049 }
+    .controls button:hover { background:#45a049 }
+
     .scroll-container {
-      flex: 0 0 auto; width: 600px; height: 100px; margin-bottom: 10px;
-      overflow: hidden; border: 2px dashed #ccc; background: #333;
+      width:90%; max-width:600px;
+      height:100px; margin-bottom:12px;
+      overflow:hidden; border:2px dashed #ccc;
+      background:#333;
     }
-    #scrollList {
-      position: relative; top: 0;
-    }
+    #scrollList { position:relative; top:0 }
+
     .lists-area {
-      flex: 1 1 auto; display: flex; justify-content: space-around;
-      width: 100%; padding: 0 150px 100px; box-sizing: border-box;
-      overflow-y: auto;
+      flex:1 1 auto;
+      display:flex; justify-content:space-around;
+      width:100%; padding:0 150px 100px;
+      box-sizing:border-box; overflow-y:auto;
     }
     .list-section {
-      width: 45%;
+      width:45%;
     }
     .list-section h3 {
-      margin-top: 0; text-align: center; font-size: 1.25em;
+      margin-top:0; text-align:center; font-size:1.25em;
     }
+
     ul {
-      display: grid;
-      grid-template-columns: repeat(3, max-content);
-      justify-content: center;
-      gap: 8px;
-      list-style: none; padding: 0; margin: 10px 0;
+      display:grid;
+      grid-template-columns:repeat(3, max-content);
+      justify-content:center; gap:8px;
+      list-style:none; padding:0; margin:10px 0;
     }
     .list-item {
-      background: #333; padding: 6px 10px; border-radius: 5px;
-      display: flex; align-items: center; white-space: nowrap;
-      font-size: 14px;
+      background:#333; padding:6px 10px; border-radius:5px;
+      display:flex; align-items:center; white-space:nowrap;
+      font-size:14px;
     }
     .list-item button {
-      margin-right: 8px; margin-left: 0;
-      border: none; border-radius: 3px;
-      padding: 0 6px; cursor: pointer; font-size: 14px; color: #fff;
+      margin-right:8px; border:none; border-radius:3px;
+      padding:0 6px; font-size:14px; cursor:pointer; color:#fff;
     }
-    .remove-btn {
-      background: #d9534f;
-    }
-    .remove-btn:hover {
-      background: #c9302c;
-    }
-    .restore-btn {
-      background: #5cb85c;
-    }
-    .restore-btn:hover {
-      background: #4cae4c;
-    }
+    .remove-btn { background:#d9534f }
+    .remove-btn:hover { background:#c9302c }
+    .restore-btn { background:#5cb85c }
+    .restore-btn:hover { background:#4cae4c }
+
     .add-bar {
-      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-      background: rgba(51,51,51,0.9); padding: 8px 12px; border-radius: 6px;
-      display: flex; align-items: center; gap: 8px; z-index: 1000;
+      position:fixed; bottom:16px; left:50%; transform:translateX(-50%);
+      background:rgba(51,51,51,0.9);
+      padding:8px 12px; border-radius:6px;
+      display:flex; gap:8px; align-items:center; z-index:1000;
     }
     .add-bar input {
-      padding: 6px; font-size: 14px; width: 200px;
-      border: none; border-radius: 4px;
+      padding:6px; font-size:14px; width:160px;
+      border:none; border-radius:4px;
     }
     .add-bar button {
-      padding: 6px 12px; font-size: 14px;
-      border: none; border-radius: 4px; background: #4CAF50; color: #fff;
-      cursor: pointer; transition: background .2s;
+      padding:6px 12px; font-size:14px;
+      border:none; border-radius:4px; background:#4CAF50;
+      color:#fff; cursor:pointer; transition:background .2s;
     }
-    .add-bar button:hover {
-      background: #45a049;
-    }
+    .add-bar button:hover { background:#45a049 }
+
     .highlight {
-      animation: pulse .6s ease-out forwards;
+      animation:pulse .6s ease-out forwards;
     }
     @keyframes pulse {
       0%   { transform: scale(1); }
       50%  { transform: scale(1.1); }
       100% { transform: scale(1); }
     }
+
+    /* —— Responsive tweaks —— */
+    @media (max-width: 900px) {
+      .lists-area { padding:0 60px 100px; }
+    }
+    @media (max-width: 600px) {
+      .logo { max-height:100px }
+      h1 { font-size:1.5rem }
+      .lists-area {
+        flex-direction:column;
+        padding:0 20px 100px;
+      }
+      .list-section { width:100%; margin-bottom:24px }
+      ul {
+        grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));
+      }
+      .add-bar input { width:120px }
+    }
   </style>
 </head>
 <body>
 
   <div class="overlay">
-    <img src="Images/image1.jpg" class="logo" alt="Logo">
+    <img src="images/image1.jpg" class="logo" alt="Logo">
     <h1>🎲 Next Weeks Game!</h1>
 
     <div class="controls">
@@ -137,18 +154,17 @@
   </div>
 
   <script>
-    // Audio
-    const scrollSound = new Audio('Sounds/scroll.mp3');
+    const scrollSound = new Audio('sounds/scroll.mp3');
     const landSound   = new Audio('sounds/land.mp3');
 
-    // Data
     const originalGames = [
       "It Takes Two","Deep Rock Galactic","A Way Out",
       "Keep Talking and Nobody Explodes","Stardew Valley",
-      "Lovers in a Dangerous Spacetime","Phasmaphobia","Portal 2",
-      "Left 4 Dead 2","Castle Crashers","Cuphead","Borderlands 3",
-      "Overcooked 2","Helldivers","Payday 2","Back 4 Blood",
-      "Gang Beasts","Sea of Thieves","Terraria"
+      "Lovers in a Dangerous Spacetime","Phasmaphobia",
+      "Portal 2","Left 4 Dead 2","Castle Crashers","Cuphead",
+      "Borderlands 3","Overcooked 2","Helldivers",
+      "Payday 2","Back 4 Blood","Gang Beasts",
+      "Sea of Thieves","Terraria"
     ];
     let availableGames = JSON.parse(localStorage.getItem("availableGames")) || [...originalGames];
     let removedGames   = JSON.parse(localStorage.getItem("removedGames"))   || [];
@@ -162,7 +178,7 @@
 
     function shuffleArray(arr){
       const a = [...arr];
-      for(let i = a.length - 1; i > 0; i--){
+      for(let i=a.length-1; i>0; i--){
         const j = Math.floor(Math.random()*(i+1));
         [a[i], a[j]] = [a[j], a[i]];
       }
@@ -172,95 +188,79 @@
     function renderLists(){
       const avail = document.getElementById("availableList");
       const rem   = document.getElementById("removedList");
-      avail.innerHTML = "";
-      rem.innerHTML   = "";
+      avail.innerHTML = ""; rem.innerHTML = "";
 
-      // Games to Play: arrow before name
-      availableGames.forEach(game => {
+      availableGames.forEach(g => {
         const li = document.createElement("li");
         li.className = "list-item";
         li.innerHTML = `
           <button class="restore-btn"
-                  onclick='removeGame(${JSON.stringify(game)})'>&rarr;</button>
-          <span>${game}</span>`;
+                  onclick='removeGame(${JSON.stringify(g)})'>&rarr;</button>
+          <span>${g}</span>`;
         avail.appendChild(li);
       });
 
-      // Past Picks: ← then × before name
-      removedGames.forEach(game => {
+      removedGames.forEach(g => {
         const li = document.createElement("li");
         li.className = "list-item";
         li.innerHTML = `
           <button class="restore-btn"
-                  onclick='reAddGame(${JSON.stringify(game)})'>&larr;</button>
+                  onclick='reAddGame(${JSON.stringify(g)})'>&larr;</button>
           <button class="remove-btn"
-                  onclick='deleteGame(${JSON.stringify(game)})'>&times;</button>
-          <span>${game}</span>`;
+                  onclick='deleteGame(${JSON.stringify(g)})'>&times;</button>
+          <span>${g}</span>`;
         rem.appendChild(li);
       });
     }
 
     function scrollAndPick(){
-      if(!availableGames.length) {
-        return alert("All games picked! Reset or add more.");
-      }
+      if(!availableGames.length) return alert("All games picked! Reset or add more.");
       const scrollList = document.getElementById("scrollList");
-      scrollList.innerHTML      = "";
+      scrollList.innerHTML = "";
       scrollList.style.transition = "";
-      scrollList.style.top      = "0px";
+      scrollList.style.top = "0px";
 
-      scrollSound.currentTime = 0;
-      scrollSound.play();
+      scrollSound.currentTime = 0; scrollSound.play();
 
-      const shuffled  = shuffleArray(availableGames);
-      const loops     = 3;
-      const chosenIdx = Math.floor(Math.random()*shuffled.length);
-      const extended  = [];
+      const shuffled = shuffleArray(availableGames);
+      const loops = 3, chosenIdx = Math.floor(Math.random()*shuffled.length);
+      const extended = [];
+      for(let r=0; r<loops; r++) shuffled.forEach(g=>extended.push(g));
+      for(let i=0; i<=chosenIdx; i++) extended.push(shuffled[i]);
 
-      for(let r=0; r<loops; r++){
-        shuffled.forEach(g => extended.push(g));
-      }
-      for(let i=0; i<=chosenIdx; i++){
-        extended.push(shuffled[i]);
-      }
-
-      extended.forEach(g => {
+      extended.forEach(g=>{
         const d = document.createElement("div");
         d.style.cssText =
           "height:100px; line-height:100px; font-size:32px;" +
           "font-weight:bold; white-space:nowrap; width:100%;" +
           "text-align:center; overflow:hidden;";
-        d.textContent = "🎮 " + g;
+        d.textContent = "🎮 "+g;
         scrollList.appendChild(d);
       });
 
       setTimeout(()=>{
         scrollList.style.transition = "top 5s ease-out";
-        const finalTop = -((loops*shuffled.length + chosenIdx) * 100);
-        scrollList.style.top = finalTop + "px";
+        scrollList.style.top = -((loops*shuffled.length + chosenIdx)*100)+"px";
       }, 20);
 
       scrollList.addEventListener("transitionend", function handler(){
         scrollList.removeEventListener("transitionend", handler);
-
-        landSound.currentTime = 0;
-        landSound.play();
+        landSound.currentTime = 0; landSound.play();
 
         const idx = loops*shuffled.length + chosenIdx;
         const chosenDiv = scrollList.children[idx];
         chosenDiv.classList.add("highlight");
-        chosenDiv.addEventListener("animationend", () => {
+        chosenDiv.addEventListener("animationend", ()=>{
           chosenDiv.classList.remove("highlight");
         });
 
         const pick = extended[idx];
         const i = availableGames.indexOf(pick);
-        if(i > -1){
+        if(i>-1){
           availableGames.splice(i,1);
           removedGames.push(pick);
           lastGame = pick;
-          renderLists();
-          saveState();
+          renderLists(); saveState();
         }
       });
     }
@@ -268,39 +268,34 @@
     function resetGames(){
       if(!confirm("Are you sure you want to reset all games?")) return;
       availableGames = [...originalGames];
-      removedGames   = [];
-      lastGame       = null;
-      localStorage.clear();
-      renderLists();
+      removedGames = []; lastGame = null;
+      localStorage.clear(); renderLists();
     }
 
     function removeGame(name){
-      availableGames = availableGames.filter(g => g !== name);
+      availableGames = availableGames.filter(g=>g!==name);
       removedGames.push(name);
-      if(lastGame === name) lastGame = null;
+      if(lastGame===name) lastGame=null;
       renderLists(); saveState();
     }
-
     function deleteGame(name){
       if(!confirm(`Permanently delete “${name}”?`)) return;
-      removedGames = removedGames.filter(g => g !== name);
-      if(lastGame === name) lastGame = null;
+      removedGames = removedGames.filter(g=>g!==name);
+      if(lastGame===name) lastGame=null;
       renderLists(); saveState();
     }
-
     function reAddGame(name){
       if(!availableGames.includes(name)){
-        removedGames = removedGames.filter(g => g !== name);
+        removedGames = removedGames.filter(g=>g!==name);
         availableGames.push(name);
         renderLists(); saveState();
       }
     }
-
     function addGame(){
       const val = document.getElementById("gameInput").value.trim();
       if(val && !availableGames.includes(val) && !removedGames.includes(val)){
         availableGames.push(val);
-        document.getElementById("gameInput").value = "";
+        document.getElementById("gameInput").value="";
         renderLists(); saveState();
       }
     }
