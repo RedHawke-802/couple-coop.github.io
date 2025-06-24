@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Next Weeks Game!</title>
   <style>
     /* General Page Styles */
@@ -240,13 +240,23 @@
       font-size: 1rem;
       margin: 0 0 12px;
     }
+    /* Redesigned Close Button */
     .close-button {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 24px;
-      color: #333;
+      top: 5px;
+      right: 5px;
+      width: 40px;
+      height: 40px;
+      background: #f44336;
+      color: #fff;
+      font-size: 18px;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
     /* Backup and Restore Section */
     .backup-bar {
@@ -323,7 +333,7 @@
   <!-- Overlay Popup for Game Details -->
   <div id="gamePopup" class="game-popup">
     <div class="popup-content">
-      <span id="closePopup" class="close-button">&times;</span>
+      <button id="closePopup" class="close-button">&times;</button>
       <img id="popupImage" src="" alt="Game Image" style="display:none;"/>
       <h2 id="popupGameName"></h2>
       <p id="popupPlatform" style="font-weight:bold; margin:0 0 12px;"></p>
@@ -338,8 +348,8 @@
     // Start with no preloaded games
     const originalGames = [];
     let availableGames = JSON.parse(localStorage.getItem("availableGames")) || [...originalGames];
-    let removedGames   = JSON.parse(localStorage.getItem("removedGames")) || [];
-    let lastGame       = localStorage.getItem("lastGame") || null;
+    let removedGames = JSON.parse(localStorage.getItem("removedGames")) || [];
+    let lastGame = localStorage.getItem("lastGame") || null;
 
     function saveState() {
       localStorage.setItem("availableGames", JSON.stringify(availableGames));
